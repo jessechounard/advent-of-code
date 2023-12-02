@@ -40,12 +40,12 @@ func day02a() {
                 for set in game.1 {
                     for cubes in set {
                         switch cubes.1 {
-                            case Color.red:
-                                redCount = max(cubes.0, redCount)
-                            case Color.green:
-                                greenCount = max(cubes.0, greenCount)
-                            case Color.blue:
-                                blueCount = max(cubes.0, blueCount)
+                        case Color.red:
+                            redCount = max(cubes.0, redCount)
+                        case Color.green:
+                            greenCount = max(cubes.0, greenCount)
+                        case Color.blue:
+                            blueCount = max(cubes.0, blueCount)
                         }
                     }
                 }
@@ -57,8 +57,7 @@ func day02a() {
         }
 
         print(result)
-    }
-    else {
+    } else {
         print("Couldn't read input file")
     }
 }
@@ -74,12 +73,12 @@ func day02b() {
                 for set in game.1 {
                     for cubes in set {
                         switch cubes.1 {
-                            case Color.red:
-                                redCount = max(cubes.0, redCount)
-                            case Color.green:
-                                greenCount = max(cubes.0, greenCount)
-                            case Color.blue:
-                                blueCount = max(cubes.0, blueCount)
+                        case Color.red:
+                            redCount = max(cubes.0, redCount)
+                        case Color.green:
+                            greenCount = max(cubes.0, greenCount)
+                        case Color.blue:
+                            blueCount = max(cubes.0, blueCount)
                         }
                     }
                 }
@@ -91,8 +90,7 @@ func day02b() {
         }
 
         print(result)
-    }
-    else {
+    } else {
         print("Couldn't read input file")
     }
 }

@@ -5,14 +5,13 @@ func day01a() {
         let lines = contents.components(separatedBy: "\n")
 
         let result = lines.reduce(0) {
-            let first = $1.first(where: {$0.isNumber})?.wholeNumberValue ?? 0
-            let second = $1.last(where: {$0.isNumber})?.wholeNumberValue ?? 0
+            let first = $1.first(where: { $0.isNumber })?.wholeNumberValue ?? 0
+            let second = $1.last(where: { $0.isNumber })?.wholeNumberValue ?? 0
             return $0 + first * 10 + second
         }
 
         print(result)
-    }
-    else {
+    } else {
         print("Couldn't read input file")
     }
 }
@@ -32,15 +31,13 @@ func day01b() {
                 .replacingOccurrences(of: "eight", with: "e8t")
                 .replacingOccurrences(of: "nine", with: "n9e")
 
-
-            let first = line.first(where: {$0.isNumber})?.wholeNumberValue ?? 0
-            let second = line.last(where: {$0.isNumber})?.wholeNumberValue ?? 0
+            let first = line.first(where: { $0.isNumber })?.wholeNumberValue ?? 0
+            let second = line.last(where: { $0.isNumber })?.wholeNumberValue ?? 0
             return $0 + first * 10 + second
         }
 
         print(result)
-    }
-    else {
+    } else {
         print("Couldn't read input file")
     }
 }
