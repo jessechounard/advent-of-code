@@ -48,25 +48,28 @@ func day04b() {
         for line in lines {
             if let card = parseCard(cardString: line) {
                 let winningNumbers = Set(card.1)
-                scores[card.0] = card.2.reduce(0) {
+                let wins = card.2.reduce(0) {
                     winningNumbers.contains($1) ? $0 + 1 : $0
                 }
-            }
-        }
-
-        var cards = Array(1 ... 214)
-        var process = 0
-
-        while process < cards.count {
-            let card = cards[process]
-            if let wins = scores[card] {
                 if wins > 0 {
-                    cards.append(contentsOf: Array((card + 1) ... (card + wins)))
+                    scores[card.0] = wins
                 }
             }
-            process += 1
         }
 
-        print(cards.count)
+        var cards = Array(repeating: 1, count: 214)
+
+        for id in (0..<214) {
+            if let wins = scores[id] {
+                for i in (1 ... wins) {
+                    // ids are 1-214, indices are 0-213, account for off by 1
+                    cards[id + i - 1] += cards[id - 1]
+                }
+            }
+        }
+
+        print(cards.reduce(0) {
+            return $0 + $1
+        })
     }
 }
