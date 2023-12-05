@@ -59,9 +59,9 @@ func day04b() {
 
         var cards = Array(repeating: 1, count: 214)
 
-        for id in (0..<214) {
+        for id in 0 ..< 214 {
             if let wins = scores[id] {
-                for i in (1 ... wins) {
+                for i in 1 ... wins {
                     // ids are 1-214, indices are 0-213, account for off by 1
                     cards[id + i - 1] += cards[id - 1]
                 }
@@ -69,7 +69,7 @@ func day04b() {
         }
 
         print(cards.reduce(0) {
-            return $0 + $1
+            $0 + $1
         })
     }
 }

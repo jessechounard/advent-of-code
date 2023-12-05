@@ -1,2 +1,2 @@
-day04a()
-day04b()
+day05a()
+day05b()
