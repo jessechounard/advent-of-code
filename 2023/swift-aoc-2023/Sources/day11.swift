@@ -84,12 +84,21 @@ private func getDistance(galaxyNumberA: Int,
                          emptyColumns: Set<Int>,
                          expansion: Int) -> Int
 {
-    if let galaxyA = galaxies[galaxyNumberA], let galaxyB = galaxies[galaxyNumberB] {
-        let emptyWidth = Set(min(galaxyA.x, galaxyB.x) ..< max(galaxyA.x, galaxyB.x))
-            .intersection(emptyColumns).count * expansion
-        let emptyHeight = Set(min(galaxyA.y, galaxyB.y) ..< max(galaxyA.y, galaxyB.y))
-            .intersection(emptyRows).count * expansion
-        return abs(galaxyA.x - galaxyB.x) + abs(galaxyA.y - galaxyB.y) + emptyWidth + emptyHeight
+    if let galaxyA = galaxies[galaxyNumberA],
+       let galaxyB = galaxies[galaxyNumberB]
+    {
+        let emptyWidth = Set(min(galaxyA.x, galaxyB.x) ..< max(
+            galaxyA.x,
+            galaxyB.x
+        ))
+        .intersection(emptyColumns).count * expansion
+        let emptyHeight = Set(min(galaxyA.y, galaxyB.y) ..< max(
+            galaxyA.y,
+            galaxyB.y
+        ))
+        .intersection(emptyRows).count * expansion
+        return abs(galaxyA.x - galaxyB.x) + abs(galaxyA.y - galaxyB.y) +
+            emptyWidth + emptyHeight
     }
     return 0
 }
@@ -106,7 +115,14 @@ func day11a() {
             for j in i + 1 ..< galaxyNumbers.count {
                 let g2 = galaxyNumbers[j]
 
-                sum += getDistance(galaxyNumberA: g1, galaxyNumberB: g2, galaxies: galaxies, emptyRows: emptyRows, emptyColumns: emptyColumns, expansion: 1)
+                sum += getDistance(
+                    galaxyNumberA: g1,
+                    galaxyNumberB: g2,
+                    galaxies: galaxies,
+                    emptyRows: emptyRows,
+                    emptyColumns: emptyColumns,
+                    expansion: 1
+                )
             }
         }
 
@@ -126,7 +142,14 @@ func day11b() {
             for j in i + 1 ..< galaxyNumbers.count {
                 let g2 = galaxyNumbers[j]
 
-                sum += getDistance(galaxyNumberA: g1, galaxyNumberB: g2, galaxies: galaxies, emptyRows: emptyRows, emptyColumns: emptyColumns, expansion: 999999)
+                sum += getDistance(
+                    galaxyNumberA: g1,
+                    galaxyNumberB: g2,
+                    galaxies: galaxies,
+                    emptyRows: emptyRows,
+                    emptyColumns: emptyColumns,
+                    expansion: 999_999
+                )
             }
         }
 

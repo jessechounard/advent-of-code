@@ -24,13 +24,17 @@ func parseData() -> ([Int: (Int, Int)], [Int: String]) {
                     currentNumber += character.wholeNumberValue!
                 } else if inNumber, !character.isNumber {
                     inNumber = false
-                    numberDictionary[numberX * 1000 + numberY] = (currentNumber, numberLength)
+                    numberDictionary[numberX * 1000 + numberY] = (
+                        currentNumber,
+                        numberLength
+                    )
                     currentNumber = 0
                     numberLength = 0
                 }
 
                 if !character.isNumber, character != "." {
-                    symbolDictionary[lineIndex * 1000 + mapIndex] = String(character)
+                    symbolDictionary[lineIndex * 1000 + mapIndex] =
+                        String(character)
                 }
             }
         }

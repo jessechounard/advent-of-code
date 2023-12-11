@@ -133,29 +133,45 @@ func day05b() {
 
                         // five possibilites
                         // 1) range fully contained in conversion
-                        // 2) conversion fully contained in range (splitting range)
+                        // 2) conversion fully contained in range (splitting
+                        // range)
                         // 3) range overlaps beginning of conversion
                         // 4) range overlaps end of conversion
                         // 5) no overlap at all (no transformation)
 
                         if rs >= cs, re <= ce {
-                            nextRanges.append(Range(start: rs + offset, length: range.length))
+                            nextRanges.append(Range(
+                                start: rs + offset,
+                                length: range.length
+                            ))
                             range.length = 0
                             break
                         }
                         if rs < cs, re > ce {
-                            nextRanges.append(Range(start: cs + offset, length: conversion.length))
-                            ranges.append(Range(start: ce + 1, length: re - ce + 1))
+                            nextRanges.append(Range(
+                                start: cs + offset,
+                                length: conversion.length
+                            ))
+                            ranges.append(Range(
+                                start: ce + 1,
+                                length: re - ce + 1
+                            ))
                             range.length = cs - rs + 1
                             continue
                         }
                         if rs < cs, re >= cs {
-                            nextRanges.append(Range(start: cs + offset, length: re - cs + 1))
+                            nextRanges.append(Range(
+                                start: cs + offset,
+                                length: re - cs + 1
+                            ))
                             range.length -= re - cs + 1
                             continue
                         }
                         if rs <= ce, re > ce {
-                            nextRanges.append(Range(start: rs + offset, length: ce - rs + 1))
+                            nextRanges.append(Range(
+                                start: rs + offset,
+                                length: ce - rs + 1
+                            ))
                             range.start += ce - rs + 1
                             range.length -= ce - rs + 1
                             continue
@@ -170,7 +186,8 @@ func day05b() {
                 }
             }
 
-            let minimum = nextRanges.reduce(Int.max) { $0 < $1.start ? $0 : $1.start }
+            let minimum = nextRanges
+                .reduce(Int.max) { $0 < $1.start ? $0 : $1.start }
             print(minimum)
         }
     }

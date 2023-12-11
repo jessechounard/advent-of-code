@@ -50,7 +50,8 @@ func day02a() {
                     }
                 }
 
-                return (redCount <= 12 && greenCount <= 13 && blueCount <= 14) ? $0 + game.0 : $0
+                return (redCount <= 12 && greenCount <= 13 && blueCount <= 14) ?
+                    $0 + game.0 : $0
             } else {
                 return 0
             }

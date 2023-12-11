@@ -132,12 +132,16 @@ private func getLoopLength(loopStart: Location, map: [[Pipe]]) -> Int {
 private func simplifyLoopMap(loopStart: Location, map: [[Pipe]]) -> [[Pipe]] {
     var fromDirection = Direction.West
     var currentLocation = Location(x: loopStart.x + 1, y: loopStart.y)
-    var newMap: [[Pipe]] = Array(repeating: Array(repeating: Pipe.None, count: map[0].count), count: map.count)
+    var newMap: [[Pipe]] = Array(
+        repeating: Array(repeating: Pipe.None, count: map[0].count),
+        count: map.count
+    )
 
     newMap[loopStart.y][loopStart.x] = Pipe.EastWest
 
     while map[currentLocation.y][currentLocation.x] != Pipe.Starting {
-        newMap[currentLocation.y][currentLocation.x] = map[currentLocation.y][currentLocation.x]
+        newMap[currentLocation.y][currentLocation.x] =
+            map[currentLocation.y][currentLocation.x]
 
         switch map[currentLocation.y][currentLocation.x] {
         case Pipe.EastWest:

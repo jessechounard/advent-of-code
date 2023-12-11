@@ -33,7 +33,10 @@ private func readInput() -> Map? {
 
         do {
             let result = try parser.parse(input)
-            let destinations = result.1.reduce(into: [String: (String, String)]()) { $0[$1.0] = ($1.1, $1.2) }
+            let destinations = result.1.reduce(into: [String: (
+                String,
+                String
+            )]()) { $0[$1.0] = ($1.1, $1.2) }
             return Map(directions: result.0, destinations: destinations)
         } catch {
             print(error)
@@ -51,7 +54,8 @@ func day08a() {
 
         while location != "ZZZ" {
             if let next = map.destinations[location] {
-                location = map.directions[index] == Direction.Left ? next.0 : next.1
+                location = map.directions[index] == Direction.Left ? next
+                    .0 : next.1
                 moves += 1
                 index = (index + 1) % map.directions.count
             } else {
@@ -108,7 +112,8 @@ func day08b() {
             while !states.contains(state) {
                 if let next = map.destinations[location] {
                     states.insert(state)
-                    location = map.directions[index] == Direction.Left ? next.0 : next.1
+                    location = map.directions[index] == Direction.Left ? next
+                        .0 : next.1
                     moves += 1
 
                     if location.hasSuffix("Z") {

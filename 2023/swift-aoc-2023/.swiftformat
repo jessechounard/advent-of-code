@@ -2,3 +2,4 @@
 
 --indent 4
 --indentstrings true
+--maxwidth 80

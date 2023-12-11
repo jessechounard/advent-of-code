@@ -160,7 +160,10 @@ func readCardInput() -> [Hand] {
         let lines = input.split(separator: "\n")
         return lines.map {
             let splitHand = $0.split(separator: " ")
-            var hand = Hand(cards: splitHand[0].map(characterToCardLable), bid: Int(splitHand[1])!)
+            var hand = Hand(
+                cards: splitHand[0].map(characterToCardLable),
+                bid: Int(splitHand[1])!
+            )
             hand.rank = rankHand(hand: hand)
             return hand
         }
@@ -173,7 +176,10 @@ func readCardInputB() -> [Hand] {
         let lines = input.split(separator: "\n")
         return lines.map {
             let splitHand = $0.split(separator: " ")
-            var hand = Hand(cards: splitHand[0].map(characterToCardLableB), bid: Int(splitHand[1])!)
+            var hand = Hand(
+                cards: splitHand[0].map(characterToCardLableB),
+                bid: Int(splitHand[1])!
+            )
             hand.rank = rankHandB(hand: hand)
             return hand
         }
