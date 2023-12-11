@@ -22,7 +22,7 @@ private func readInput() -> [[Int]]? {
 
 private func solveLine(numbers: [Int]) -> (Int, Int) {
     let differences = zip(numbers.dropFirst(), numbers).map { $0 - $1 }
-    if differences.allSatisfy( { $0 == 0 }) {
+    if differences.allSatisfy({ $0 == 0 }) {
         return (numbers.first!, numbers.last!)
     } else {
         let next = solveLine(numbers: differences)
@@ -32,7 +32,7 @@ private func solveLine(numbers: [Int]) -> (Int, Int) {
 
 func day09() {
     if let numbersList = readInput() {
-        print(numbersList.reduce((0, 0)) { 
+        print(numbersList.reduce((0, 0)) {
             let next = solveLine(numbers: $1)
             return ($0.0 + next.0, $0.1 + next.1)
         })

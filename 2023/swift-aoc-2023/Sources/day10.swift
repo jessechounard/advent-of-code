@@ -31,13 +31,13 @@ private func readInput() -> [[Pipe]]? {
                 Many {
                     OneOf {
                         "|".map { Pipe.NorthSouth }
-                        "-".map {Pipe.EastWest}
-                        "L".map {Pipe.NorthEast}
-                        "J".map {Pipe.NorthWest}
-                        "7".map {Pipe.SouthWest}
-                        "F".map {Pipe.SouthEast}
-                        ".".map {Pipe.None}
-                        "S".map {Pipe.Starting}
+                        "-".map { Pipe.EastWest }
+                        "L".map { Pipe.NorthEast }
+                        "J".map { Pipe.NorthWest }
+                        "7".map { Pipe.SouthWest }
+                        "F".map { Pipe.SouthEast }
+                        ".".map { Pipe.None }
+                        "S".map { Pipe.Starting }
                     }
                 }
             } separator: {
@@ -58,7 +58,7 @@ private func getLoopStart(map: [[Pipe]]) -> Location {
             }
         }
     }
-    return Location(x:0, y: 0)
+    return Location(x: 0, y: 0)
 }
 
 // I know from looking at my map that my starting point can go only
@@ -68,58 +68,58 @@ private func getLoopLength(loopStart: Location, map: [[Pipe]]) -> Int {
     var currentLocation = Location(x: loopStart.x + 1, y: loopStart.y)
     var steps = 1
 
-    while(map[currentLocation.y][currentLocation.x] != Pipe.Starting) {
-        switch(map[currentLocation.y][currentLocation.x]) {
-            case Pipe.EastWest:
-                if(fromDirection == Direction.West) {
-                    currentLocation.x += 1
-                    fromDirection = Direction.West
-                } else {
-                    currentLocation.x -= 1
-                    fromDirection = Direction.East
-                }
-            case Pipe.NorthEast:
-                if(fromDirection == Direction.North) {
-                    currentLocation.x += 1
-                    fromDirection = Direction.West
-                } else {
-                    currentLocation.y -= 1
-                    fromDirection = Direction.South
-                }
-            case Pipe.NorthSouth:
-                if(fromDirection == Direction.North) {
-                    currentLocation.y += 1
-                    fromDirection = Direction.North
-                } else {
-                    currentLocation.y -= 1
-                    fromDirection = Direction.South
-                }
-            case Pipe.NorthWest:
-                if(fromDirection == Direction.North) {
-                    currentLocation.x -= 1
-                    fromDirection = Direction.East
-                } else {
-                    currentLocation.y -= 1
-                    fromDirection = Direction.South
-                }
-            case Pipe.SouthEast:
-                if(fromDirection == Direction.South) {
-                    currentLocation.x += 1
-                    fromDirection = Direction.West
-                } else {
-                    currentLocation.y += 1
-                    fromDirection = Direction.North
-                }
-            case Pipe.SouthWest:
-                if(fromDirection == Direction.South) {
-                    currentLocation.x -= 1
-                    fromDirection = Direction.East
-                } else {
-                    currentLocation.y += 1
-                    fromDirection = Direction.North
-                }
-            default:
-                break
+    while map[currentLocation.y][currentLocation.x] != Pipe.Starting {
+        switch map[currentLocation.y][currentLocation.x] {
+        case Pipe.EastWest:
+            if fromDirection == Direction.West {
+                currentLocation.x += 1
+                fromDirection = Direction.West
+            } else {
+                currentLocation.x -= 1
+                fromDirection = Direction.East
+            }
+        case Pipe.NorthEast:
+            if fromDirection == Direction.North {
+                currentLocation.x += 1
+                fromDirection = Direction.West
+            } else {
+                currentLocation.y -= 1
+                fromDirection = Direction.South
+            }
+        case Pipe.NorthSouth:
+            if fromDirection == Direction.North {
+                currentLocation.y += 1
+                fromDirection = Direction.North
+            } else {
+                currentLocation.y -= 1
+                fromDirection = Direction.South
+            }
+        case Pipe.NorthWest:
+            if fromDirection == Direction.North {
+                currentLocation.x -= 1
+                fromDirection = Direction.East
+            } else {
+                currentLocation.y -= 1
+                fromDirection = Direction.South
+            }
+        case Pipe.SouthEast:
+            if fromDirection == Direction.South {
+                currentLocation.x += 1
+                fromDirection = Direction.West
+            } else {
+                currentLocation.y += 1
+                fromDirection = Direction.North
+            }
+        case Pipe.SouthWest:
+            if fromDirection == Direction.South {
+                currentLocation.x -= 1
+                fromDirection = Direction.East
+            } else {
+                currentLocation.y += 1
+                fromDirection = Direction.North
+            }
+        default:
+            break
         }
         steps += 1
     }
@@ -133,63 +133,63 @@ private func simplifyLoopMap(loopStart: Location, map: [[Pipe]]) -> [[Pipe]] {
     var fromDirection = Direction.West
     var currentLocation = Location(x: loopStart.x + 1, y: loopStart.y)
     var newMap: [[Pipe]] = Array(repeating: Array(repeating: Pipe.None, count: map[0].count), count: map.count)
-    
+
     newMap[loopStart.y][loopStart.x] = Pipe.EastWest
 
-    while(map[currentLocation.y][currentLocation.x] != Pipe.Starting) {
+    while map[currentLocation.y][currentLocation.x] != Pipe.Starting {
         newMap[currentLocation.y][currentLocation.x] = map[currentLocation.y][currentLocation.x]
 
-        switch(map[currentLocation.y][currentLocation.x]) {
-            case Pipe.EastWest:
-                if(fromDirection == Direction.West) {
-                    currentLocation.x += 1
-                    fromDirection = Direction.West
-                } else {
-                    currentLocation.x -= 1
-                    fromDirection = Direction.East
-                }
-            case Pipe.NorthEast:
-                if(fromDirection == Direction.North) {
-                    currentLocation.x += 1
-                    fromDirection = Direction.West
-                } else {
-                    currentLocation.y -= 1
-                    fromDirection = Direction.South
-                }
-            case Pipe.NorthSouth:
-                if(fromDirection == Direction.North) {
-                    currentLocation.y += 1
-                    fromDirection = Direction.North
-                } else {
-                    currentLocation.y -= 1
-                    fromDirection = Direction.South
-                }
-            case Pipe.NorthWest:
-                if(fromDirection == Direction.North) {
-                    currentLocation.x -= 1
-                    fromDirection = Direction.East
-                } else {
-                    currentLocation.y -= 1
-                    fromDirection = Direction.South
-                }
-            case Pipe.SouthEast:
-                if(fromDirection == Direction.South) {
-                    currentLocation.x += 1
-                    fromDirection = Direction.West
-                } else {
-                    currentLocation.y += 1
-                    fromDirection = Direction.North
-                }
-            case Pipe.SouthWest:
-                if(fromDirection == Direction.South) {
-                    currentLocation.x -= 1
-                    fromDirection = Direction.East
-                } else {
-                    currentLocation.y += 1
-                    fromDirection = Direction.North
-                }
-            default:
-                break
+        switch map[currentLocation.y][currentLocation.x] {
+        case Pipe.EastWest:
+            if fromDirection == Direction.West {
+                currentLocation.x += 1
+                fromDirection = Direction.West
+            } else {
+                currentLocation.x -= 1
+                fromDirection = Direction.East
+            }
+        case Pipe.NorthEast:
+            if fromDirection == Direction.North {
+                currentLocation.x += 1
+                fromDirection = Direction.West
+            } else {
+                currentLocation.y -= 1
+                fromDirection = Direction.South
+            }
+        case Pipe.NorthSouth:
+            if fromDirection == Direction.North {
+                currentLocation.y += 1
+                fromDirection = Direction.North
+            } else {
+                currentLocation.y -= 1
+                fromDirection = Direction.South
+            }
+        case Pipe.NorthWest:
+            if fromDirection == Direction.North {
+                currentLocation.x -= 1
+                fromDirection = Direction.East
+            } else {
+                currentLocation.y -= 1
+                fromDirection = Direction.South
+            }
+        case Pipe.SouthEast:
+            if fromDirection == Direction.South {
+                currentLocation.x += 1
+                fromDirection = Direction.West
+            } else {
+                currentLocation.y += 1
+                fromDirection = Direction.North
+            }
+        case Pipe.SouthWest:
+            if fromDirection == Direction.South {
+                currentLocation.x -= 1
+                fromDirection = Direction.East
+            } else {
+                currentLocation.y += 1
+                fromDirection = Direction.North
+            }
+        default:
+            break
         }
     }
 
@@ -200,22 +200,22 @@ private func printMap(map: [[Pipe]]) {
     for line in map {
         for pipe in line {
             switch pipe {
-                case Pipe.NorthSouth:
-                    print("|", terminator: "")
-                case Pipe.EastWest:
-                    print("-", terminator: "")
-                case Pipe.NorthEast:
-                    print("L", terminator: "")
-                case Pipe.NorthWest:
-                    print("J", terminator: "")
-                case Pipe.SouthWest:
-                    print("7", terminator: "")
-                case Pipe.SouthEast:
-                    print("F", terminator: "")
-                case Pipe.None:
-                    print(".", terminator: "")
-                default:
-                    break
+            case Pipe.NorthSouth:
+                print("|", terminator: "")
+            case Pipe.EastWest:
+                print("-", terminator: "")
+            case Pipe.NorthEast:
+                print("L", terminator: "")
+            case Pipe.NorthWest:
+                print("J", terminator: "")
+            case Pipe.SouthWest:
+                print("7", terminator: "")
+            case Pipe.SouthEast:
+                print("F", terminator: "")
+            case Pipe.None:
+                print(".", terminator: "")
+            default:
+                break
             }
         }
         print("")
@@ -238,18 +238,18 @@ private func countInsideArea(map: [[Pipe]]) -> Int {
 
         for pipe in line {
             switch pipe {
-                case Pipe.NorthSouth:
-                    windingCount+=1
-                case Pipe.SouthWest:
-                    windingCount+=1
-                case Pipe.SouthEast:
-                    windingCount+=1
-                case Pipe.None:
-                    if windingCount % 2 == 1 {
-                        area += 1
-                    }
-                default:
-                    break
+            case Pipe.NorthSouth:
+                windingCount += 1
+            case Pipe.SouthWest:
+                windingCount += 1
+            case Pipe.SouthEast:
+                windingCount += 1
+            case Pipe.None:
+                if windingCount % 2 == 1 {
+                    area += 1
+                }
+            default:
+                break
             }
         }
     }
