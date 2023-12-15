@@ -7,7 +7,11 @@ private enum Object: String {
 
 private func readInput() -> [[[Object]]]? {
     if let input = try? String(contentsOfFile: "input/day-13.txt") {
-        let lines = input.split(separator: "\n", maxSplits: Int.max, omittingEmptySubsequences: false)
+        let lines = input.split(
+            separator: "\n",
+            maxSplits: Int.max,
+            omittingEmptySubsequences: false
+        )
 
         var list: [[[Object]]] = []
         var group: [[Object]] = []
@@ -17,7 +21,7 @@ private func readInput() -> [[[Object]]]? {
                 list.append(group)
                 group = []
             } else {
-                group.append(line.map() { $0 == "." ? Object.Ash : Object.Rocks })
+                group.append(line.map { $0 == "." ? Object.Ash : Object.Rocks })
             }
         }
         if !group.isEmpty {
@@ -40,7 +44,8 @@ private func groupToColumnNumbers(_ group: [[Object]]) -> [Int] {
 
     for row in group {
         for (index, object) in row.enumerated() {
-            results[index] = results[index] << 1 | (object == Object.Ash ? 1 : 0)
+            results[index] = results[index] << 1 |
+                (object == Object.Ash ? 1 : 0)
         }
     }
 
@@ -54,7 +59,7 @@ private func getBitsSet(_ number: Int) -> Int {
 
     var n = number & (number - 1)
     var count = 1
-    while(n > 0) {
+    while n > 0 {
         n = n & (n - 1)
         count += 1
     }
@@ -68,18 +73,22 @@ private func getBitsDifferent(_ lhs: Int, _ rhs: Int) -> Int {
     return abs(and - or)
 }
 
-
-private func isMirror(_ numberGroup: [Int], _ location: Int, _ smudges: Int) -> Bool {
+private func isMirror(_ numberGroup: [Int], _ location: Int,
+                      _ smudges: Int) -> Bool
+{
     var front = location - 1, back = location
     var smudgeCount = 0
 
-    while front >= 0 && back < numberGroup.count {
-        if(smudgeCount == smudges) {
+    while front >= 0, back < numberGroup.count {
+        if smudgeCount == smudges {
             if numberGroup[front] != numberGroup[back] {
                 return false
             }
         } else {
-            let bitsDifferent = getBitsDifferent(numberGroup[front], numberGroup[back])
+            let bitsDifferent = getBitsDifferent(
+                numberGroup[front],
+                numberGroup[back]
+            )
             if bitsDifferent == 1 {
                 smudgeCount += 1
             } else if bitsDifferent != 0 {
@@ -105,7 +114,10 @@ private func getMirrorValue(_ numberGroup: [Int], _ smudges: Int) -> Int {
     return 0
 }
 
-private func getMirrorValuePair(_ numberGroups: (rowGroup: [Int], columnGroup: [Int]), _ smudges: Int) -> Int {
+private func getMirrorValuePair(
+    _ numberGroups: (rowGroup: [Int], columnGroup: [Int]),
+    _ smudges: Int
+) -> Int {
     let value = getMirrorValue(numberGroups.rowGroup, smudges)
     if value != 0 {
         return value * 100
@@ -116,16 +128,22 @@ private func getMirrorValuePair(_ numberGroups: (rowGroup: [Int], columnGroup: [
 
 func day13a() {
     if let objects = readInput() {
-        let rowGroups = objects.map() { groupToRowNumbers($0) }
-        let columnGroups = objects.map() { groupToColumnNumbers($0) }
-        print(zip(rowGroups, columnGroups).reduce(0) { $0 + getMirrorValuePair($1, 0) })
+        let rowGroups = objects.map { groupToRowNumbers($0) }
+        let columnGroups = objects.map { groupToColumnNumbers($0) }
+        print(zip(rowGroups, columnGroups).reduce(0) { $0 + getMirrorValuePair(
+            $1,
+            0
+        ) })
     }
 }
 
 func day13b() {
     if let objects = readInput() {
-        let rowGroups = objects.map() { groupToRowNumbers($0) }
-        let columnGroups = objects.map() { groupToColumnNumbers($0) }
-        print(zip(rowGroups, columnGroups).reduce(0) { $0 + getMirrorValuePair($1, 1) })
+        let rowGroups = objects.map { groupToRowNumbers($0) }
+        let columnGroups = objects.map { groupToColumnNumbers($0) }
+        print(zip(rowGroups, columnGroups).reduce(0) { $0 + getMirrorValuePair(
+            $1,
+            1
+        ) })
     }
 }
