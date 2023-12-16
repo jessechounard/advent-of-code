@@ -8,7 +8,7 @@ private struct Lens {
 private func readInput() -> [String] {
     if let input = try? String(contentsOfFile: "input/day-15.txt") {
         let strings = input.split(separator: ",")
-        return strings.map() { String($0) }
+        return strings.map { String($0) }
     }
     return [""]
 }

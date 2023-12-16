@@ -33,7 +33,7 @@ private func rotateGrid(_ grid: [[Thing]]) -> [[Thing]] {
     )
 
     for (y, row) in grid.enumerated() {
-        for(x, thing) in row.enumerated() {
+        for (x, thing) in row.enumerated() {
             rotated[x][y] = thing
         }
     }
@@ -42,13 +42,12 @@ private func rotateGrid(_ grid: [[Thing]]) -> [[Thing]] {
 }
 
 private func move(_ grid: inout [[Thing]], _ direction: Direction) {
-    if(direction == Direction.Left || direction == Direction.Right)
-    {
+    if direction == Direction.Left || direction == Direction.Right {
         let from = direction == Direction.Left ? 0 : grid[0].count - 1
         let to = direction == Direction.Left ? grid[0].count : -1
         let by = direction == Direction.Left ? 1 : -1
 
-        for y in (0 ..< grid.count) {
+        for y in 0 ..< grid.count {
             var move = -1
 
             for x in stride(from: from, to: to, by: by) {
@@ -58,7 +57,10 @@ private func move(_ grid: inout [[Thing]], _ direction: Direction) {
                     }
                 } else {
                     if grid[y][x] == Thing.RoundedRock {
-                        (grid[y][x], grid[y][move]) = (grid[y][move], grid[y][x])
+                        (grid[y][x], grid[y][move]) = (
+                            grid[y][move],
+                            grid[y][x]
+                        )
                         move += by
                     } else if grid[y][x] == Thing.CubeRock {
                         move = -1
@@ -71,7 +73,7 @@ private func move(_ grid: inout [[Thing]], _ direction: Direction) {
         let to = direction == Direction.Up ? grid.count : -1
         let by = direction == Direction.Up ? 1 : -1
 
-        for x in (0 ..< grid[0].count) {
+        for x in 0 ..< grid[0].count {
             var move = -1
 
             for y in stride(from: from, to: to, by: by) {
@@ -81,7 +83,10 @@ private func move(_ grid: inout [[Thing]], _ direction: Direction) {
                     }
                 } else {
                     if grid[y][x] == Thing.RoundedRock {
-                        (grid[y][x], grid[move][x]) = (grid[move][x], grid[y][x])
+                        (grid[y][x], grid[move][x]) = (
+                            grid[move][x],
+                            grid[y][x]
+                        )
                         move += by
                     } else if grid[y][x] == Thing.CubeRock {
                         move = -1
@@ -102,8 +107,8 @@ private func cycle(_ grid: inout [[Thing]]) {
 private func countWeight(_ grid: [[Thing]]) -> Int {
     var weight = 0
     let height = grid.count
-    for y in (0 ..< grid.count) {
-        for x in (0 ..< grid[y].count) {
+    for y in 0 ..< grid.count {
+        for x in 0 ..< grid[y].count {
             if grid[y][x] == Thing.RoundedRock {
                 weight += height - y
             }
@@ -118,7 +123,7 @@ private func makeString(_ grid: [[Thing]]) -> String {
 
     for line in grid {
         for thing in line {
-            if thing != Thing.Empty && empty != 0 {
+            if thing != Thing.Empty, empty != 0 {
                 result += String(empty)
                 empty = 0
             }
@@ -142,7 +147,7 @@ private func printGrid(_ grid: [[Thing]]) {
         for thing in line {
             print(thing.rawValue, terminator: "")
         }
-        print("")        
+        print("")
     }
     print("")
 }
@@ -158,22 +163,22 @@ func day14a() {
 func day14b() {
     if let things = readInput() {
         var things = things
-        var states: [String : Int] = [:]        
+        var states: [String: Int] = [:]
         var cycles = 0
 
         var state = makeString(things)
-        while(!states.keys.contains(state)){
+        while !states.keys.contains(state) {
             states[state] = cycles
             cycle(&things)
             cycles += 1
             state = makeString(things)
         }
 
-        let cyclesRemaining = 1000000000 - cycles
+        let cyclesRemaining = 1_000_000_000 - cycles
         let cycleLength = cycles - states[state]!
         let cyclesRemainingAfter = cyclesRemaining % cycleLength
 
-        for _ in (0 ..< cyclesRemainingAfter) {
+        for _ in 0 ..< cyclesRemainingAfter {
             cycle(&things)
         }
 
