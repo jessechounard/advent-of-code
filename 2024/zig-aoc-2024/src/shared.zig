@@ -17,3 +17,11 @@ pub fn readLines(allocator: std.mem.Allocator, path: []const u8) !std.ArrayList(
     }
     return lines;
 }
+
+pub fn readFile(allocator: std.mem.Allocator, path: []const u8) ![]u8 {
+    var file = try std.fs.cwd().openFile(path, .{});
+    defer file.close();
+
+    const buffer = try file.readToEndAlloc(allocator, (try file.stat()).size);
+    return buffer;
+}
