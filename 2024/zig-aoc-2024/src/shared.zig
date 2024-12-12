@@ -25,3 +25,18 @@ pub fn readFile(allocator: std.mem.Allocator, path: []const u8) ![]u8 {
     const buffer = try file.readToEndAlloc(allocator, (try file.stat()).size);
     return buffer;
 }
+
+pub fn sliceEquality(comptime T: type, a: []const T, b: []const T) bool {
+    if (a.ptr == b.ptr) {
+        return true;
+    }
+    if (a.len != b.len) {
+        return false;
+    }
+    for (a, b) |a_item, b_item| {
+        if (a_item != b_item) {
+            return false;
+        }
+    }
+    return true;
+}
